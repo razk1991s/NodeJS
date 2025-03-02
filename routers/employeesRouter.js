@@ -27,6 +27,18 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Get Employee by Deparment
+router.get("/deparment/:deparment", async (req, res) => {
+  try {
+    const { deparment } = req.params;
+
+    const employees = await employeesService.getEmployeeByDeparment(deparment);
+    res.send(employees);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 // Add a new Employee
 router.post("/", async (req, res) => {
   try {

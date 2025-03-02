@@ -27,16 +27,15 @@ const addUser = (obj) => {
 };
 
 const login = async (obj) => {
-  const allUsers = getAllUsersWS();
-  console.log(allUsers);
+  const allUsers = await getAllUsersWS();
+
   if (
     allUsers.find(
       (userInfo) => userInfo.name === obj.name && userInfo.email === obj.email
     )
   ) {
-    return true;
+    return obj.name;
   }
-  return flase;
 };
 
 module.exports = {

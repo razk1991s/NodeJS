@@ -54,25 +54,15 @@ router.get("/usersWS", async (req, res) => {
 //need to add a json file the reduce every single action
 router.post("/login", async (req, res) => {
   try {
-    const { name, email } = req.body;
+    // const token = jwt.sign(
+    //   { userName: name, myEmail: email, actionsLeft: user.numOfActions },
+    //   SECRET_KEY,
+    //   { expiresIn: "1d" }
+    // );
 
-    if (!name || !email) {
-      return res.status(400).json({ message: "Name and email are required" });
-    }
-
-    const user = await Users.findOne({ fullName: name });
-
-    if (!user) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
-
-    const token = jwt.sign(
-      { userName: name, myEmail: email, actionsLeft: user.numOfActions },
-      SECRET_KEY,
-      { expiresIn: "1d" }
-    );
-
-    res.json({ token, name });
+    const userData = req.body;
+    const userName = await usersService.login(userData);
+    if (userName.length > 1) res.status(200).send({ userName });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });

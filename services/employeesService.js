@@ -8,6 +8,14 @@ const getEmployeeById = (id) => {
   return employeesRepo.getEmployeeById(id);
 };
 
+const getEmployeeByDeparment = async (deparment) => {
+  const employees = await employeesRepo.getAllEmployees();
+  const filteredEmployees = employees.filter(
+    (employee) => employee.deparmentID == deparment
+  );
+  return filteredEmployees;
+};
+
 const addEmployee = (obj) => {
   return employeesRepo.addEmployee(obj);
 };
@@ -26,4 +34,5 @@ module.exports = {
   addEmployee,
   updateEmployee,
   deleteEmployee,
+  getEmployeeByDeparment,
 };
